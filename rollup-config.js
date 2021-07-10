@@ -27,7 +27,7 @@ const envDependentPlugins = process.env.PRODUCTION ? [
 ];
 
 export default {
-  input: 'index.js',
+  input: 'src/index.js',
   plugins: [...commonPlugins, ...envDependentPlugins],
   context: 'null',
   moduleContext: 'null',

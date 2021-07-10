@@ -7,7 +7,7 @@ module.exports = {
     // Resolve aliased imports
     'import/resolver': {
       alias: [
-        ['@', './'],
+        ['@', './src'],
       ],
     },
   },
