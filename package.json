@@ -4,7 +4,9 @@
   "description": "マダミスとかのタイムライン整理に使えると嬉しいやつ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "rollup -c rollup-config.js --watch",
+    "build": "rollup -c rollup-config.js --environment PRODUCTION",
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
