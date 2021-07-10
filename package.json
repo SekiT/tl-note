@@ -1,0 +1,19 @@
+{
+  "name": "tl-note",
+  "version": "0.0.1",
+  "description": "マダミスとかのタイムライン整理に使えると嬉しいやつ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SekiT/tl-note.git"
+  },
+  "author": "https://github.com/SekiT",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/SekiT/tl-note/issues"
+  },
+  "homepage": "https://github.com/SekiT/tl-note#readme"
+}
