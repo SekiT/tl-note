@@ -4,6 +4,8 @@ import esbuild from 'rollup-plugin-esbuild';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 
+const path = require('path');
+
 const unbreakTemplatePlugin = {
   name: 'unbreak-template',
   transform(code) {
@@ -15,7 +17,7 @@ const unbreakTemplatePlugin = {
 
 const commonPlugins = [
   resolve(),
-  alias({ entries: { '@': process.cwd() } }),
+  alias({ entries: { '@': path.join(process.cwd(), 'src') } }),
 ];
 
 const envDependentPlugins = process.env.PRODUCTION ? [
