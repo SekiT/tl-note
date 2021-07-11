@@ -23,15 +23,17 @@ const containerStyle = {
   'font-size': '24px',
 };
 
+const buttonWidth = 'min(max(4vw, 24px), 32px)';
+
 const buttonStyle = {
   'align-self': 'center',
   'margin-left': '0.5vw',
-  width: 'min(max(4vw, 24px), 32px)',
-  height: 'min(max(4vw, 24px), 32px)',
+  width: buttonWidth,
+  height: buttonWidth,
+  'font-size': `calc(${buttonWidth} * 0.8)`,
   padding: 0,
   border: '2px solid #99c',
   'border-radius': '50%',
-  'font-size': 'inherit',
   'background-color': '#ccf',
   color: '#339',
 };
