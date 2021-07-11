@@ -6,6 +6,7 @@ const columnStyle = ({ color, width }) => ({
   display: 'inline',
   width: `${width}%`,
   'text-align': 'center',
+  'border-radius': '12px 12px 0 0',
   'background-color': `rgb(${color.join(',')})`,
   color: color[0] + color[1] + color[2] < 384 ? 'white' : 'black',
 });
@@ -17,11 +18,22 @@ const columnView = (column) => html`
 const containerStyle = {
   display: 'flex',
   width: '80%',
+  height: '36px',
   margin: '0 5% 0 15%',
+  'font-size': '24px',
 };
 
 const buttonStyle = {
-  width: '5%',
+  'align-self': 'center',
+  'margin-left': '0.5vw',
+  width: 'min(max(4vw, 24px), 32px)',
+  height: 'min(max(4vw, 24px), 32px)',
+  padding: 0,
+  border: '2px solid #99c',
+  'border-radius': '50%',
+  'font-size': 'inherit',
+  'background-color': '#ccf',
+  color: '#339',
 };
 
 export default () => html`
