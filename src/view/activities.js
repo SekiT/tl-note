@@ -1,23 +1,6 @@
 import { html } from 'sinuous';
-
-// TODO: use observable
-const activities = [
-  {
-    id: 'a1',
-    day: 1,
-    columnIds: ['c1', 'c2'],
-    time: '12:00',
-    text: 'A氏とB君がエントランスで会った',
-  },
-  {
-    id: 'a2',
-    day: 1,
-    columnIds: ['c1'],
-    time: '12:00',
-    timeEnd: '13:00',
-    text: 'A氏はエントランスにいた。B君以外とは会っていない',
-  },
-];
+import { map } from 'sinuous/map';
+import activities from '@/observable/activities';
 
 const activityView = ({ time, timeEnd, text }) => html`
   <div>
@@ -37,6 +20,6 @@ const containerStyle = {
 
 export default () => html`
   <div style=${containerStyle}>
-    ${activities.map(activityView)}
+    ${map(activities, activityView)}
   </div>
 `;

@@ -1,11 +1,6 @@
 import { html } from 'sinuous';
-
-// TODO: use observable
-const columns = [
-  { id: 1, name: 'A氏', color: [0, 0, 128] },
-  { id: 2, name: 'B君', color: [255, 128, 128] },
-  { id: 3, name: 'C様', color: [128, 255, 128] },
-];
+import { map } from 'sinuous/map';
+import columns from '@/observable/columns';
 
 const columnStyle = (color) => ({
   display: 'inline',
@@ -25,7 +20,7 @@ const containerStyle = {
 
 export default () => html`
   <div style=${containerStyle}>
-    ${columns.map(columnView)}
+    ${map(columns, columnView)}
     <button>+</button>
   </div>
 `;
