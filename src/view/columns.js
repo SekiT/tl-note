@@ -23,7 +23,7 @@ const containerStyle = {
   'font-size': '24px',
 };
 
-const buttonWidth = 'min(max(4vw, 24px), 32px)';
+export const buttonWidth = 'min(max(4vw, 24px), 32px)';
 
 const buttonStyle = {
   'align-self': 'center',
