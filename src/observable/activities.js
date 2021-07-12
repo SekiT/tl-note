@@ -16,6 +16,13 @@ const activities = observable([
     timeEnd: '13:00',
     text: 'A氏はエントランスにいた。B君以外とは会っていない',
   },
+  {
+    id: 'a3',
+    columnIds: ['c3'],
+    day: 1,
+    time: '13:05',
+    text: 'C様が自室から出てエントランスに来た',
+  },
 ]);
 
 export default activities;
