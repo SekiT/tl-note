@@ -17,7 +17,7 @@ const columns = observable([
     id: 'c3',
     name: 'C様',
     color: [128, 255, 128],
-    width: 33,
+    width: 34,
   },
 ]);
 

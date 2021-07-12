@@ -2,9 +2,10 @@ import { html } from 'sinuous';
 import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
 
-const columnStyle = ({ color, width }) => ({
-  display: 'inline',
-  width: `${width}%`,
+const columnStyle = ({ color, width, name }) => ({
+  width: `${width * 0.75}vw`,
+  'line-height': '36px',
+  'font-size': `min(24px, ${(width * 0.75) / name.length}vw)`,
   'text-align': 'center',
   'border-radius': '12px 12px 0 0',
   'background-color': `rgb(${color.join(',')})`,
@@ -17,13 +18,24 @@ const columnView = (column) => html`
 
 const containerStyle = {
   display: 'flex',
-  width: '80%',
+  'margin-left': '15vw',
+  width: '85vw',
   height: '36px',
-  margin: '0 5% 0 15%',
-  'font-size': '24px',
+  'align-items': 'center',
 };
 
-export const buttonWidth = 'min(max(4vw, 24px), 32px)';
+const columnsPartStyle = {
+  display: 'flex',
+  width: '75vw',
+};
+
+const buttonPartStyle = {
+  display: 'flex',
+  width: '10vw',
+  'text-align': 'left',
+};
+
+const buttonWidth = 'min(max(4vw, 24px), 32px)';
 
 const buttonStyle = {
   'align-self': 'center',
@@ -40,7 +52,11 @@ const buttonStyle = {
 
 export default () => html`
   <div style=${containerStyle}>
-    ${map(columns, columnView)}
-    <button style=${buttonStyle}>+</button>
+    <div style=${columnsPartStyle}>
+      ${map(columns, columnView)}
+    </div>
+    <div style=${buttonPartStyle}>
+      <button style=${buttonStyle}>+</button>
+    </div>
   </div>
 `;

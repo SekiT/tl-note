@@ -3,7 +3,6 @@ import { computed } from 'sinuous/observable';
 import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
 import activities from '@/observable/activities';
-import { buttonWidth } from '@/view/columns';
 
 const timeToActivities = computed(() => Object.entries(activities().reduce((acc, activity) => {
   const { time, timeEnd } = activity;
@@ -19,24 +18,23 @@ const trStyle = {
   'border-bottom': '1px dashed black',
 };
 
-const timeColumnWidth = 100 / 9;
-
 const timeColumnStyle = {
-  width: `${timeColumnWidth}%`,
+  padding: 0,
+  width: '10vw',
   'text-align': 'center',
   color: 'black',
 };
 
-const activityWidthRatio = `(1 - ${timeColumnWidth} / 100)`;
-
 const cellStyle = (width) => ({
   display: 'table-cell',
-  width: `calc(${width}% * ${activityWidthRatio}`,
+  padding: 0,
+  width: `${width * 0.75}vw`,
+  'text-align': 'center',
   'vertical-align': 'top',
 });
 
 const actStyle = (color) => ({
-  margin: '2px 0',
+  margin: '1px',
   padding: '2px',
   border: '1px solid black',
   'border-radius': '3px',
@@ -58,8 +56,8 @@ const activityView = ([time, acts]) => html`
 `;
 
 const containerStyle = {
-  width: `calc(90% - ${buttonWidth})`,
-  margin: '0 5%',
+  width: '85vw',
+  margin: '0 5vw',
   'border-collapse': 'collapse',
   'overflow-y': 'scroll',
   'background-color': '#eee',
