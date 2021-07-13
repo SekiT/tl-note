@@ -1,6 +1,7 @@
 import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
 import columns from '@/observable/columns';
+import activities from '@/observable/activities';
 import { plusButtonStyle } from '@/sharedStyle';
 import { foregroundColor } from './util';
 
@@ -106,6 +107,13 @@ const deleteButtonStyle = {
 const onClickDeleteButton = () => {
   const state = columnDialogState();
   columns(columns().filter(({ id }) => id !== state.id));
+  activities(activities().flatMap((activity) => {
+    const { columnIds } = activity;
+    if (columnIds.length === 1 && columnIds[0] === state.id) {
+      return [];
+    }
+    return [{ ...activity, columnIds: columnIds.filter((id) => id !== state.id) }];
+  }));
   columnDialogState({ ...state, mode: 'none' });
 };
 
