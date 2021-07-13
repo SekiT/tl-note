@@ -3,6 +3,7 @@ import { computed } from 'sinuous/observable';
 import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
 import activities from '@/observable/activities';
+import { foregroundColor } from './util';
 
 const timeToActivities = computed(() => Object.entries(activities().reduce((acc, activity) => {
   const { time, timeEnd } = activity;
@@ -39,7 +40,7 @@ const actStyle = (color) => ({
   border: '1px solid black',
   'border-radius': '3px',
   'background-color': `rgba(${color.join(',')},0.5)`,
-  color: color[0] + color[1] + color[2] < 384 ? 'white' : 'black',
+  color: foregroundColor(color),
 });
 
 const activityView = ([time, acts]) => html`
