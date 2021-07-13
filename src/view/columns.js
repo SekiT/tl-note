@@ -1,5 +1,6 @@
 import { html } from 'sinuous';
 import { map } from 'sinuous/map';
+import { plusButtonStyle } from '@/sharedStyle';
 import columns from '@/observable/columns';
 
 const columnStyle = ({ color, width, name }) => ({
@@ -38,16 +39,9 @@ const buttonPartStyle = {
 const buttonWidth = 'min(max(4vw, 24px), 32px)';
 
 const buttonStyle = {
+  ...plusButtonStyle(buttonWidth),
   'align-self': 'center',
   'margin-left': '0.5vw',
-  width: buttonWidth,
-  height: buttonWidth,
-  'font-size': `calc(${buttonWidth} * 0.8)`,
-  padding: 0,
-  border: '2px solid #99c',
-  'border-radius': '50%',
-  'background-color': '#ccf',
-  color: '#339',
 };
 
 export default () => html`
