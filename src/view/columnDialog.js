@@ -1,5 +1,6 @@
 import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
+import columns from '@/observable/columns';
 import { plusButtonStyle } from '@/sharedStyle';
 import { foregroundColor } from './util';
 
@@ -101,9 +102,15 @@ const deleteButtonStyle = {
   'border-color': '#c99',
 };
 
+const onClickDeleteButton = () => {
+  const state = columnDialogState();
+  columns(columns().filter(({ id }) => id !== state.id));
+  columnDialogState({ ...state, mode: 'none' });
+};
+
 const deleteButton = computed(() => (
   columnDialogState().mode === 'update' && (
-    html`<button style=${deleteButtonStyle}>🗑️</button>`
+    html`<button style=${deleteButtonStyle} onclick=${onClickDeleteButton}>🗑️</button>`
   )
 ));
 
@@ -113,6 +120,17 @@ const upsertButtonStyle = {
   'font-size': '15px',
   'background-color': '#cfc',
   'border-color': '#9c9',
+};
+
+const onClickUpsertButton = () => {
+  const { mode, ...newColumn } = columnDialogState();
+  const currentColumns = columns();
+  if (mode === 'add') {
+    columns([...currentColumns, newColumn]);
+  } else {
+    columns(currentColumns.map((current) => (current.id === newColumn.id ? newColumn : current)));
+  }
+  columnDialogState({ mode: 'none', ...newColumn });
 };
 
 export default () => html`
@@ -129,7 +147,7 @@ export default () => html`
       </div>
       <div style=${buttonAreaStyle}>
         ${deleteButton}
-        <button style=${upsertButtonStyle}>✔️</button>
+        <button style=${upsertButtonStyle} onclick=${onClickUpsertButton}>✔️</button>
       </div>
     </div>
   </div>

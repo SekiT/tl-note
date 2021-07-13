@@ -26,13 +26,13 @@ const timeColumnStyle = {
   color: 'black',
 };
 
-const cellStyle = (width) => ({
+const cellStyle = computed(() => ({
   display: 'table-cell',
   padding: 0,
-  width: `${width * 0.75}vw`,
+  width: `${75 / columns().length}vw`,
   'text-align': 'center',
   'vertical-align': 'top',
-});
+}));
 
 const actStyle = (color) => ({
   margin: '1px',
@@ -46,8 +46,8 @@ const actStyle = (color) => ({
 const activityView = ([time, acts]) => html`
   <tr style=${trStyle}>
     <td style=${timeColumnStyle}>${time}</td>
-    ${map(columns, ({ id: columnId, width, color }) => html`
-      <td style=${cellStyle(width)}>
+    ${map(columns, ({ id: columnId, color }) => html`
+      <td style=${cellStyle}>
         ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
           <div style=${actStyle(color)}>${act.text}</div>
         ` : ''))}

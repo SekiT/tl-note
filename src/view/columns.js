@@ -1,19 +1,22 @@
 import { html } from 'sinuous';
-import { map } from 'sinuous/map';
+import { computed } from 'sinuous/observable';
 import { plusButtonStyle } from '@/sharedStyle';
 import columns from '@/observable/columns';
 import { foregroundColor } from './util';
 import { columnDialogState } from './columnDialog';
 
-const columnStyle = ({ color, width, name }) => ({
-  width: `${width * 0.75}vw`,
-  'line-height': '36px',
-  'font-size': `min(24px, ${(width * 0.75) / name.length}vw)`,
-  'text-align': 'center',
-  'border-radius': '12px 12px 0 0',
-  'background-color': `rgb(${color.join(',')})`,
-  color: foregroundColor(color),
-});
+const columnStyle = ({ color, name }, length) => {
+  const width = 75 / length;
+  return {
+    width: `${width}vw`,
+    'line-height': '36px',
+    'font-size': `min(24px, ${width / name.length}vw)`,
+    'text-align': 'center',
+    'border-radius': '12px 12px 0 0',
+    'background-color': `rgb(${color.join(',')})`,
+    color: foregroundColor(color),
+  };
+};
 
 const onClickColumn = (evt) => {
   const targetId = evt.target.getAttribute('data-id');
@@ -27,11 +30,17 @@ const onClickColumn = (evt) => {
   });
 };
 
-const columnView = (column) => html`
-  <div style=${columnStyle(column)} onclick=${onClickColumn} data-id=${column.id}>
+const columnView = (column, length) => html`
+  <div style=${columnStyle(column, length)} onclick=${onClickColumn} data-id=${column.id}>
     ${column.name}
   </div>
 `;
+
+const columnsPart = computed(() => {
+  const cs = columns();
+  const { length } = cs;
+  return cs.map((c) => columnView(c, length));
+});
 
 const containerStyle = {
   display: 'flex',
@@ -78,7 +87,7 @@ const onClickPlusButton = () => {
 export default () => html`
   <div style=${containerStyle}>
     <div style=${columnsPartStyle}>
-      ${map(columns, columnView)}
+      ${columnsPart}
     </div>
     <div style=${buttonPartStyle}>
       <button style=${buttonStyle} onclick=${onClickPlusButton}>+</button>
