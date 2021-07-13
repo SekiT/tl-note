@@ -80,6 +80,7 @@ const onChangeColor = (evt) => {
 const nameInputStyle = computed(() => ({
   'margin-left': '5px',
   padding: 0,
+  width: '20vw',
   'font-size': '24px',
   'line-height': '24px',
   'text-align': 'center',
