@@ -73,7 +73,7 @@ const randomColor = () => (
   [0, 64, 128, 192, 255][Math.floor(Math.random() * 5)]
 );
 
-const newId = () => `c${Math.max(...columns().map(({ id }) => parseInt(id.slice(1), 10))) + 1}`;
+const newId = () => `c${Math.max(...[...columns().map(({ id }) => parseInt(id.slice(1), 10)), 0]) + 1}`;
 
 const onClickPlusButton = () => {
   columnDialogState({
