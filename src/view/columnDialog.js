@@ -2,7 +2,7 @@ import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
 import columns from '@/observable/columns';
 import activities from '@/observable/activities';
-import { plusButtonStyle } from '@/sharedStyle';
+import { plusButtonStyle, dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
 import { foregroundColor } from './util';
 
 export const columnDialogState = observable({
@@ -13,26 +13,9 @@ export const columnDialogState = observable({
 });
 
 const containerStyle = computed(() => ({
+  ...dialogBackgroundStyle,
   display: columnDialogState().mode === 'none' ? 'none' : 'block',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  'background-color': 'rgba(0, 0, 0, 0.6)',
-  'font-family': 'sans-serif',
-  'font-size': '24px',
 }));
-
-const windowStyle = {
-  position: 'absolute',
-  top: '50vh',
-  left: '50vw',
-  transform: 'translate(-50%, -50%)',
-  'border-radius': '12px',
-  padding: '12px',
-  'background-color': 'white',
-};
 
 const titleStyle = {
   'font-size': '18px',
@@ -144,7 +127,7 @@ const onClickUpsertButton = () => {
 
 export default () => html`
   <div style=${containerStyle}>
-    <div style=${windowStyle}>
+    <div style=${dialogWindowStyle}>
       <div style="display:flex">
         <div style=${titleStyle}>${titleText}</div>
         <button style=${closeButtonStyle} onclick=${onClickCloseButton}>X</button>

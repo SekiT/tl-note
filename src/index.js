@@ -3,6 +3,7 @@ import columnsView from './view/columns';
 import activitiesView from './view/activities';
 import newActivityButtonView from './view/newActivityButton';
 import columnDialog from './view/columnDialog';
+import activityDialog from './view/activityDialog';
 
 const style = {
   margin: '2vh 0',
@@ -17,6 +18,7 @@ const indexView = () => html`
   </div>
   <${newActivityButtonView} />
   <${columnDialog} />
+  <${activityDialog} />
 `;
 
 document.body.append(indexView());
