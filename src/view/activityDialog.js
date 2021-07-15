@@ -3,12 +3,12 @@ import { observable, computed } from 'sinuous/observable';
 import { dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
 
 export const activityDialogState = observable({
-  mode: 'add', // 'add' or 'update' or 'none'
+  mode: 'none', // 'add' or 'update' or 'none'
   id: '',
   columnIds: [],
   day: 1,
   time: '',
-  timeEnd: '',
+  timeEnd: null,
   text: '',
 });
 
