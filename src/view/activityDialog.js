@@ -1,6 +1,8 @@
 import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
+import columns from '@/observable/columns';
 import { dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
+import { foregroundColor } from './util';
 
 export const activityDialogState = observable({
   mode: 'none', // 'add' or 'update' or 'none'
@@ -35,6 +37,27 @@ const titleTexts = {
 };
 const titleText = computed(() => titleTexts[activityDialogState().mode]);
 
+const columnStyle = (color, checked, width) => ({
+  'background-color': `rgb(${color.join(',')})`,
+  color: foregroundColor(color),
+  opacity: checked ? 1 : 0.3,
+  width: `${width}%`,
+  'border-radius': '8px 8px 0 0',
+  'font-size': '16px',
+  'text-align': 'center',
+});
+const columnsPart = computed(() => {
+  const currentState = activityDialogState();
+  const currentColumns = columns();
+  return html`
+    ${currentColumns.map(({ id, name, color }) => html`
+      <div style=${columnStyle(color, currentState.columnIds.includes(id), 100 / currentColumns.length)}>
+        ${name}
+      </div>
+    `)}
+  `;
+});
+
 export default () => html`
   <div style=${containerStyle}>
     <div style=${windowStyle}>
@@ -44,7 +67,7 @@ export default () => html`
       </div>
       <hr />
       <div style="display:flex">
-        <div>A氏</div><div>B君</div><div>C様</div>
+        ${columnsPart}
       </div>
       <div style="display:flex">
         <div style="display:flex;flex-direction:column">
