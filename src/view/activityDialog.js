@@ -82,6 +82,22 @@ const columnsPart = computed(() => {
   `;
 });
 
+const dayFieldStyle = {
+  'font-size': '14px',
+  'margin-top': '5px',
+};
+const dayInputStyle = {
+  width: '30%',
+  'margin-left': '5px',
+};
+const day = computed(() => activityDialogState().day);
+const onChangeDay = (evt) => {
+  activityDialogState({
+    ...activityDialogState(),
+    day: parseInt(evt.target.value, 10),
+  });
+};
+
 export default () => html`
   <div style=${containerStyle}>
     <div style=${windowStyle}>
@@ -95,9 +111,21 @@ export default () => html`
       </div>
       <div style="display:flex">
         <div style="display:flex;flex-direction:column">
-          <input type="time" />
-          <div style="opacity:0.3">
-            <input type="checkbox" /> ~ <input type="time" />
+          <div style=${dayFieldStyle}>
+            Day
+            <input type="number" style=${dayInputStyle} value=${day} onchange=${onChangeDay} />
+          </div>
+          <input type="time" style="margin-top:5px" />
+          <div>
+            <input type="checkbox" />
+            <span style="opacity:0.3">
+              ~
+              <input type="time" />
+            </span>
+          </div>
+          <div>
+            <button>🗑️</button>
+            <button>✔️</button>
           </div>
         </div>
         <div>
