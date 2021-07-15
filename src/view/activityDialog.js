@@ -44,23 +44,22 @@ export default () => html`
       </div>
       <hr />
       <div style="display:flex">
+        <div>A氏</div><div>B君</div><div>C様</div>
+      </div>
+      <div style="display:flex">
         <div style="display:flex;flex-direction:column">
-          <div>
-            <select></select>
-            <button>+</button>
-          </div>
           <input type="time" />
           <div style="opacity:0.3">
             <input type="checkbox" /> ~ <input type="time" />
-          </div>
-          <div>
-            <button>🗑️</button>
-            <button>✔️</button>
           </div>
         </div>
         <div>
           <textarea></textarea>
         </div>
+      </div>
+      <div>
+        <button>🗑️</button>
+        <button>✔️</button>
       </div>
     </div>
   </div>

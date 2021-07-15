@@ -9,6 +9,15 @@ export const plusButtonStyle = (width) => ({
   color: '#339',
 });
 
+export const closeButtonStyle = (width) => ({
+  ...plusButtonStyle(width),
+  position: 'absolute',
+  right: '7px',
+  'font-size': '12px',
+  'background-color': '#ccc',
+  'border-color': '#999',
+});
+
 export const dialogBackgroundStyle = {
   position: 'fixed',
   top: 0,

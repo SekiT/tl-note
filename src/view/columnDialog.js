@@ -2,7 +2,9 @@ import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
 import columns from '@/observable/columns';
 import activities from '@/observable/activities';
-import { plusButtonStyle, dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
+import {
+  plusButtonStyle, closeButtonStyle, dialogBackgroundStyle, dialogWindowStyle,
+} from '@/sharedStyle';
 import { foregroundColor } from './util';
 
 export const columnDialogState = observable({
@@ -27,14 +29,7 @@ const titleTexts = {
 };
 const titleText = computed(() => titleTexts[columnDialogState().mode]);
 
-const closeButtonStyle = {
-  ...plusButtonStyle('24px'),
-  position: 'absolute',
-  right: '7px',
-  'font-size': '12px',
-  'background-color': '#ccc',
-  'border-color': '#999',
-};
+const dialogCloseButtonStyle = closeButtonStyle('24px');
 
 const onClickCloseButton = () => {
   columnDialogState({ ...columnDialogState(), mode: 'none' });
@@ -130,7 +125,7 @@ export default () => html`
     <div style=${dialogWindowStyle}>
       <div style="display:flex">
         <div style=${titleStyle}>${titleText}</div>
-        <button style=${closeButtonStyle} onclick=${onClickCloseButton}>X</button>
+        <button style=${dialogCloseButtonStyle} onclick=${onClickCloseButton}>X</button>
       </div>
       <hr style=${hrStyle} />
       <div>
