@@ -94,7 +94,7 @@ const day = computed(() => activityDialogState().day);
 const onChangeDay = (evt) => {
   activityDialogState({
     ...activityDialogState(),
-    day: parseInt(evt.target.value, 10),
+    day: parseInt(evt.target.value, 10) || 0,
   });
 };
 
