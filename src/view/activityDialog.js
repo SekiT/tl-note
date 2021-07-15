@@ -83,18 +83,30 @@ const columnsPart = computed(() => {
 });
 
 const dayFieldStyle = {
-  'font-size': '14px',
   'margin-top': '5px',
+  'font-size': '14px',
 };
 const dayInputStyle = {
-  width: '30%',
   'margin-left': '5px',
+  width: '30%',
 };
 const day = computed(() => activityDialogState().day);
 const onChangeDay = (evt) => {
   activityDialogState({
     ...activityDialogState(),
     day: parseInt(evt.target.value, 10) || 0,
+  });
+};
+
+const timeInputStyle = {
+  'margin-top': '5px',
+  width: '70%',
+};
+const time = computed(() => activityDialogState().time);
+const onChangeTime = (evt) => {
+  activityDialogState({
+    ...activityDialogState(),
+    time: evt.target.value,
   });
 };
 
@@ -115,7 +127,7 @@ export default () => html`
             Day
             <input type="number" style=${dayInputStyle} value=${day} onchange=${onChangeDay} />
           </div>
-          <input type="time" style="margin-top:5px" />
+          <input type="time" style=${timeInputStyle} value=${time} onchange=${onChangeTime} />
           <div>
             <input type="checkbox" />
             <span style="opacity:0.3">
@@ -123,7 +135,7 @@ export default () => html`
               <input type="time" />
             </span>
           </div>
-          <div>
+          <div style="align-self:flex-end;justify-self:flex-end">
             <button>🗑️</button>
             <button>✔️</button>
           </div>
