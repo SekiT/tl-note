@@ -52,15 +52,33 @@ const columnStyle = (color, checked, width) => ({
   'font-size': '16px',
   'text-align': 'center',
 });
-const columnsPart = computed(() => {
+const onClickColumn = (id, checked) => () => {
   const currentState = activityDialogState();
-  const currentColumns = columns();
+  const columnIds = checked
+    ? currentState.columnIds.filter((columnId) => columnId !== id)
+    : [...currentState.columnIds, id];
+  activityDialogState({
+    ...currentState,
+    columnIds,
+  });
+};
+const columnPart = (columnIds, length) => ({ id, name, color }) => {
+  const checked = columnIds.includes(id);
   return html`
-    ${currentColumns.map(({ id, name, color }) => html`
-      <div style=${columnStyle(color, currentState.columnIds.includes(id), 100 / currentColumns.length)}>
-        ${name}
-      </div>
-    `)}
+    <div
+      style=${columnStyle(color, checked, 100 / length)}
+      onclick=${onClickColumn(id, checked)}
+    >
+      ${name}
+    </div>
+  `;
+};
+const columnsPart = computed(() => {
+  const { columnIds } = activityDialogState();
+  const currentColumns = columns();
+  const columnRenderer = columnPart(columnIds, currentColumns.length);
+  return html`
+    ${currentColumns.map(columnRenderer)}
   `;
 });
 
