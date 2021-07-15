@@ -138,6 +138,24 @@ const onClickClearTimeEnd = () => {
   });
 };
 
+const textStyle = {
+  width: 'calc(100% - 12px)',
+  height: 'calc(70vh - 109px)',
+  padding: '5px',
+  'font-size': '18px',
+  'background-color': '#eee',
+  color: 'black',
+  'font-family': 'sans-serif',
+  resize: 'none',
+};
+const text = computed(() => activityDialogState().text);
+const onChangeText = (evt) => {
+  activityDialogState({
+    ...activityDialogState(),
+    text: evt.target.value,
+  });
+};
+
 export default () => html`
   <div style=${containerStyle}>
     <div style=${windowStyle}>
@@ -149,7 +167,7 @@ export default () => html`
       <div style="display:flex">
         ${columnsPart}
       </div>
-      <div style="display:flex">
+      <div style="display:flex;flex:25% 75%">
         <div style="display:flex;flex-direction:column">
           <div style=${dayFieldStyle}>
             Day
@@ -165,8 +183,8 @@ export default () => html`
             <button>✔️</button>
           </div>
         </div>
-        <div>
-          <textarea style="width:55vw;height:calc(50vh - 50px)"></textarea>
+        <div style="width:100%;height:100%">
+          <textarea style=${textStyle} value=${text} onchange=${onChangeText}></textarea>
         </div>
       </div>
     </div>
