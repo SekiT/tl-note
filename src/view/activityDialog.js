@@ -1,7 +1,7 @@
 import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
 import columns from '@/observable/columns';
-import { dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
+import { closeButtonStyle, dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
 import { foregroundColor } from './util';
 
 export const activityDialogState = observable({
@@ -37,6 +37,12 @@ const titleTexts = {
 };
 const titleText = computed(() => titleTexts[activityDialogState().mode]);
 
+const dialogCloseButtonStyle = closeButtonStyle('36px');
+const onClickCloseButton = () => activityDialogState({
+  ...activityDialogState(),
+  mode: 'none',
+});
+
 const columnStyle = (color, checked, width) => ({
   'background-color': `rgb(${color.join(',')})`,
   color: foregroundColor(color),
@@ -63,7 +69,7 @@ export default () => html`
     <div style=${windowStyle}>
       <div style=${titleStyle}>
         ${titleText}
-        <button>X</button>
+        <button style=${dialogCloseButtonStyle} onclick=${onClickCloseButton}>X</button>
       </div>
       <hr />
       <div style="display:flex">
@@ -77,12 +83,8 @@ export default () => html`
           </div>
         </div>
         <div>
-          <textarea></textarea>
+          <textarea style="width:60vw;height:calc(50vh - 50px)"></textarea>
         </div>
-      </div>
-      <div>
-        <button>🗑️</button>
-        <button>✔️</button>
       </div>
     </div>
   </div>
