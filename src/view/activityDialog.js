@@ -1,7 +1,9 @@
 import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
 import columns from '@/observable/columns';
-import { closeButtonStyle, dialogBackgroundStyle, dialogWindowStyle } from '@/sharedStyle';
+import {
+  plusButtonStyle, closeButtonStyle, dialogBackgroundStyle, dialogWindowStyle,
+} from '@/sharedStyle';
 import { foregroundColor } from './util';
 
 export const activityDialogState = observable({
@@ -10,7 +12,7 @@ export const activityDialogState = observable({
   columnIds: [],
   day: 1,
   time: '',
-  timeEnd: null,
+  timeEnd: '',
   text: '',
 });
 
@@ -110,6 +112,32 @@ const onChangeTime = (evt) => {
   });
 };
 
+const timeEndFieldStyle = {
+  'font-size': '18px',
+  'margin-top': '5px',
+};
+
+const timeEnd = computed(() => activityDialogState().timeEnd);
+const onChangeTimeEnd = (evt) => {
+  activityDialogState({
+    ...activityDialogState(),
+    timeEnd: evt.target.value,
+  });
+};
+
+const clearTimeEndButtonStyle = {
+  ...plusButtonStyle('18px'),
+  'margin-left': '5px',
+  'background-color': '#ccc',
+  'border-color': '#999',
+};
+const onClickClearTimeEnd = () => {
+  activityDialogState({
+    ...activityDialogState(),
+    timeEnd: '',
+  });
+};
+
 export default () => html`
   <div style=${containerStyle}>
     <div style=${windowStyle}>
@@ -128,20 +156,17 @@ export default () => html`
             <input type="number" style=${dayInputStyle} value=${day} onchange=${onChangeDay} />
           </div>
           <input type="time" style=${timeInputStyle} value=${time} onchange=${onChangeTime} />
-          <div>
-            <input type="checkbox" />
-            <span style="opacity:0.3">
-              ~
-              <input type="time" />
-            </span>
+          <div style=${timeEndFieldStyle}>
+            ~<input type="time" value=${timeEnd} onchange=${onChangeTimeEnd} />
+            <button style=${clearTimeEndButtonStyle} onclick=${onClickClearTimeEnd}>X</button>
           </div>
-          <div style="align-self:flex-end;justify-self:flex-end">
+          <div>
             <button>🗑️</button>
             <button>✔️</button>
           </div>
         </div>
         <div>
-          <textarea style="width:60vw;height:calc(50vh - 50px)"></textarea>
+          <textarea style="width:55vw;height:calc(50vh - 50px)"></textarea>
         </div>
       </div>
     </div>

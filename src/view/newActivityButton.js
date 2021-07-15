@@ -19,8 +19,8 @@ const onClick = () => {
     id,
     columnIds: [],
     day,
-    time: '',
-    timeEnd: null,
+    time: '12:00',
+    timeEnd: '',
     text: '',
   });
 };
