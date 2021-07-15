@@ -12,7 +12,7 @@ const style = {
 
 const onClick = () => {
   const currentActivities = activities();
-  const id = `a${Math.max(0, ...currentActivities.map((activity) => parseInt(activity.id.slice(1), 10)))}`;
+  const id = `a${Math.max(0, ...currentActivities.map((activity) => parseInt(activity.id.slice(1), 10))) + 1}`;
   const day = Math.max(1, ...currentActivities.map((activity) => activity.day));
   activityDialogState({
     mode: 'add',

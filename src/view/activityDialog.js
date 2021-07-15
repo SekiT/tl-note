@@ -1,6 +1,7 @@
 import { html } from 'sinuous';
 import { observable, computed } from 'sinuous/observable';
 import columns from '@/observable/columns';
+import activities from '@/observable/activities';
 import {
   plusButtonStyle, closeButtonStyle, dialogBackgroundStyle, dialogWindowStyle,
 } from '@/sharedStyle';
@@ -156,6 +157,49 @@ const onChangeText = (evt) => {
   });
 };
 
+const buttonsFieldStyle = {
+  'margin-top': 'auto',
+};
+const deleteButtonStyle = {
+  ...plusButtonStyle('30px'),
+  'margin-right': '7px',
+  'font-size': '15px',
+  'background-color': '#fcc',
+  'border-color': '#c99',
+};
+const onClickDeleteButton = () => {
+  const state = activityDialogState();
+  const { id } = state;
+  activities(activities().filter((activity) => activity.id !== id));
+  activityDialogState({ ...state, mode: 'none' });
+};
+const deleteButton = computed(() => (activityDialogState().mode === 'update' ? (
+  html`<button style=${deleteButtonStyle} onclick=${onClickDeleteButton}>🗑️</button>`
+) : ''));
+
+const upsertButtonDisabled = computed(() => {
+  const { columnIds, time: currentTime, text: currentText } = activityDialogState();
+  return columnIds.length === 0 || currentTime === '' || currentText === '';
+});
+const upsertButtonStyle = computed(() => ({
+  ...plusButtonStyle('30px'),
+  'font-size': '15px',
+  'background-color': '#cfc',
+  'border-color': '#9c9',
+  opacity: upsertButtonDisabled() ? 0.3 : 1,
+}));
+const onClickUpsertButton = () => {
+  const { mode, ...newActivity } = activityDialogState();
+  if (mode === 'add') {
+    activities([...activities(), newActivity]);
+  } else {
+    activities(activities().map((activity) => (
+      activity.id === newActivity.id ? newActivity : activity
+    )));
+  }
+  activityDialogState({ ...newActivity, mode: 'none' });
+};
+
 export default () => html`
   <div style=${containerStyle}>
     <div style=${windowStyle}>
@@ -178,12 +222,16 @@ export default () => html`
             ~<input type="time" value=${timeEnd} onchange=${onChangeTimeEnd} />
             <button style=${clearTimeEndButtonStyle} onclick=${onClickClearTimeEnd}>X</button>
           </div>
-          <div>
-            <button>🗑️</button>
-            <button>✔️</button>
+          <div style=${buttonsFieldStyle}>
+            ${deleteButton}
+            <button
+              style=${upsertButtonStyle}
+              onclick=${onClickUpsertButton}
+              disabled=${upsertButtonDisabled}
+            >✔️</button>
           </div>
         </div>
-        <div style="width:100%;height:100%">
+        <div style="width:100%">
           <textarea style=${textStyle} value=${text} onchange=${onChangeText}></textarea>
         </div>
       </div>

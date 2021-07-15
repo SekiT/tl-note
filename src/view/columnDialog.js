@@ -77,6 +77,7 @@ const buttonAreaStyle = {
 
 const deleteButtonStyle = {
   ...plusButtonStyle('30px'),
+  'margin-right': '7px',
   'font-size': '15px',
   'background-color': '#fcc',
   'border-color': '#c99',
@@ -103,7 +104,6 @@ const deleteButton = computed(() => (
 
 const upsertButtonStyle = {
   ...plusButtonStyle('30px'),
-  'margin-left': '7px',
   'font-size': '15px',
   'background-color': '#cfc',
   'border-color': '#9c9',
