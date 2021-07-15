@@ -4,6 +4,7 @@ import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
 import activities from '@/observable/activities';
 import { foregroundColor } from './util';
+import { activityDialogState } from './activityDialog';
 
 const timeToActivities = computed(() => Object.entries(activities().reduce((acc, activity) => {
   const { time, timeEnd } = activity;
@@ -43,13 +44,20 @@ const actStyle = (color) => ({
   color: foregroundColor(color),
 });
 
+const onClickAct = (act) => () => {
+  activityDialogState({
+    mode: 'update',
+    ...act,
+  });
+};
+
 const activityView = ([time, acts]) => html`
   <tr style=${trStyle}>
     <td style=${timeColumnStyle}>${time}</td>
     ${map(columns, ({ id: columnId, color }) => html`
       <td style=${cellStyle}>
         ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
-          <div style=${actStyle(color)}>${act.text}</div>
+          <div style=${actStyle(color)} onclick=${onClickAct(act)}>${act.text}</div>
         ` : ''))}
       </td>
     `)}
