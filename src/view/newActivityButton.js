@@ -7,7 +7,7 @@ const style = {
   ...plusButtonStyle('4vw'),
   position: 'fixed',
   right: '2vw',
-  bottom: '2vw',
+  bottom: '4vh',
 };
 
 const onClick = () => {

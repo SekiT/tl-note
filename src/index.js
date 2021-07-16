@@ -2,6 +2,7 @@ import { html } from 'sinuous';
 import columnsView from './view/columns';
 import activitiesView from './view/activities';
 import newActivityButtonView from './view/newActivityButton';
+import fileButtonView from './view/fileButton';
 import columnDialog from './view/columnDialog';
 import activityDialog from './view/activityDialog';
 
@@ -17,6 +18,7 @@ const indexView = () => html`
     <${activitiesView} />
   </div>
   <${newActivityButtonView} />
+  <${fileButtonView} />
   <${columnDialog} />
   <${activityDialog} />
 `;
