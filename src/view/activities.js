@@ -6,14 +6,28 @@ import activities from '@/observable/activities';
 import { foregroundColor } from './util';
 import { activityDialogState } from './activityDialog';
 
-const timeToActivities = computed(() => Object.entries(activities().reduce((acc, activity) => {
-  const { time, timeEnd } = activity;
-  return {
-    ...acc,
-    [time]: [...acc[time] || [], activity],
-    ...(timeEnd ? { [timeEnd]: acc[timeEnd] || [] } : {}),
-  };
-}, {})).sort(([time1], [time2]) => (time1 < time2 ? -1 : 1)));
+const dayTimeKey = (day, time) => [day, time].join(',');
+const deKey = (dayTime) => {
+  const [dayStr, time] = dayTime.split(',');
+  return [parseInt(dayStr, 10), time];
+};
+
+const dayTimeToActivities = computed(() => [...activities().reduce((acc, activity) => {
+  const { day, time, timeEnd } = activity;
+  const key = dayTimeKey(day, time);
+  acc.set(key, [...acc.get(key) || [], activity]);
+  const timeEndKey = dayTimeKey(day, timeEnd);
+  if (timeEnd) acc.set(timeEndKey, [...acc.get(timeEndKey) || []]);
+  return acc;
+}, new Map()).entries()].sort(([key1], [key2]) => {
+  const [day1, time1] = deKey(key1);
+  const [day2, time2] = deKey(key2);
+  if (day1 < day2) return -1;
+  if (day1 > day2) return 1;
+  if (time1 < time2) return -1;
+  if (time1 > time2) return 1;
+  return 0;
+}));
 
 const trStyle = {
   'border-top': '1px dashed black',
@@ -40,8 +54,9 @@ const actStyle = (color) => ({
   padding: '2px',
   border: '1px solid black',
   'border-radius': '3px',
-  'background-color': `rgba(${color.join(',')},0.5)`,
+  'background-color': `rgb(${color.map((c) => Math.floor(128 + c / 2)).join(',')})`,
   color: foregroundColor(color),
+  'z-index': 1,
 });
 
 const onClickAct = (act) => () => {
@@ -51,18 +66,21 @@ const onClickAct = (act) => () => {
   });
 };
 
-const activityView = ([time, acts]) => html`
-  <tr style=${trStyle}>
-    <td style=${timeColumnStyle}>${time}</td>
-    ${map(columns, ({ id: columnId, color }) => html`
-      <td style=${cellStyle}>
-        ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
-          <div style=${actStyle(color)} onclick=${onClickAct(act)}>${act.text}</div>
-        ` : ''))}
-      </td>
-    `)}
-  </tr>
-`;
+const activityView = ([key, acts]) => {
+  const [day, time] = deKey(key);
+  return html`
+    <tr style=${trStyle}>
+      <td style=${timeColumnStyle} data-day=${day} data-time=${time}>${time}</td>
+      ${map(columns, ({ id: columnId, color }) => html`
+        <td style=${cellStyle}>
+          ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
+            <div style=${actStyle(color)} onclick=${onClickAct(act)} data-id=${act.id}>${act.text}</div>
+          ` : ''))}
+        </td>
+      `)}
+    </tr>
+  `;
+};
 
 const containerStyle = {
   width: '85vw',
@@ -75,7 +93,7 @@ const containerStyle = {
 export default () => html`
   <table style=${containerStyle} cellSpacing={0}>
     <tbody>
-      ${map(timeToActivities, activityView)}
+      ${map(dayTimeToActivities, activityView)}
     </tbody>
   </table>
 `;
