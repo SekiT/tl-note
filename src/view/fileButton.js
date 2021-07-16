@@ -30,7 +30,7 @@ const onClickLoad = () => fileInput.click();
 const downloadLink = html`<a download="tl-note.json" />`;
 const onClickSave = () => {
   const json = { columns: columns(), activities: activities() };
-  downloadLink.href = `data:application/json,${JSON.stringify(json, 2, null)}`;
+  downloadLink.href = `data:application/json,${JSON.stringify(json, null, 2)}`;
   downloadLink.click();
 };
 
