@@ -22,7 +22,6 @@ const onChangeFile = (evt) => {
     const { columns: fileColumns, activities: fileActivities } = JSON.parse(text);
     columns(fileColumns);
     activities(fileActivities);
-    console.log({ fileColumns, fileActivities });
   }).catch(() => {});
 };
 const fileInput = html`<input type="file" accept="application/json" onchange=${onChangeFile} />`;
