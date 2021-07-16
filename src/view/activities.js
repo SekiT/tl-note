@@ -12,22 +12,29 @@ const deKey = (dayTime) => {
   return [parseInt(dayStr, 10), time];
 };
 
-const dayTimeToActivities = computed(() => [...activities().reduce((acc, activity) => {
-  const { day, time, timeEnd } = activity;
-  const key = dayTimeKey(day, time);
-  acc.set(key, [...acc.get(key) || [], activity]);
-  const timeEndKey = dayTimeKey(day, timeEnd);
-  if (timeEnd) acc.set(timeEndKey, [...acc.get(timeEndKey) || []]);
-  return acc;
-}, new Map()).entries()].sort(([key1], [key2]) => {
-  const [day1, time1] = deKey(key1);
-  const [day2, time2] = deKey(key2);
-  if (day1 < day2) return -1;
-  if (day1 > day2) return 1;
-  if (time1 < time2) return -1;
-  if (time1 > time2) return 1;
-  return 0;
-}));
+const dayTimeToActivities = computed(() => [
+  ...activities()
+    .reduce(
+      (acc, activity) => {
+        const { day, time, timeEnd } = activity;
+        const key = dayTimeKey(day, time);
+        acc.set(key, [...acc.get(key) || [], activity]);
+        const timeEndKey = dayTimeKey(day, timeEnd);
+        if (timeEnd) acc.set(timeEndKey, [...acc.get(timeEndKey) || []]);
+        return acc;
+      },
+      new Map(),
+    )
+    .entries(),
+]
+  .map(([key, acts]) => [...deKey(key), acts])
+  .sort(([day1, time1], [day2, time2]) => {
+    if (day1 < day2) return -1;
+    if (day1 > day2) return 1;
+    if (time1 < time2) return -1;
+    if (time1 > time2) return 1;
+    return 0;
+  }));
 
 const trStyle = {
   'border-top': '1px dashed black',
@@ -66,21 +73,18 @@ const onClickAct = (act) => () => {
   });
 };
 
-const activityView = ([key, acts]) => {
-  const [day, time] = deKey(key);
-  return html`
-    <tr style=${trStyle}>
-      <td style=${timeColumnStyle} data-day=${day} data-time=${time}>${time}</td>
-      ${map(columns, ({ id: columnId, color }) => html`
-        <td style=${cellStyle}>
-          ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
-            <div style=${actStyle(color)} onclick=${onClickAct(act)} data-id=${act.id}>${act.text}</div>
-          ` : ''))}
-        </td>
-      `)}
-    </tr>
-  `;
-};
+const activityView = ([day, time, acts]) => html`
+  <tr style=${trStyle}>
+    <td style=${timeColumnStyle} data-day=${day} data-time=${time}>${time}</td>
+    ${map(columns, ({ id: columnId, color }) => html`
+      <td style=${cellStyle}>
+        ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
+          <div style=${actStyle(color)} onclick=${onClickAct(act)} data-id=${act.id}>${act.text}</div>
+        ` : ''))}
+      </td>
+    `)}
+  </tr>
+`;
 
 const containerStyle = {
   width: '85vw',
