@@ -61,7 +61,7 @@ const actStyle = (color) => ({
   padding: '2px',
   border: '1px solid black',
   'border-radius': '3px',
-  'background-color': `rgb(${color.map((c) => Math.floor(128 + c / 2)).join(',')})`,
+  'background-color': `rgba(${color.join(',')},0.5)`,
   color: foregroundColor(color),
   'z-index': 1,
 });
