@@ -4,7 +4,7 @@ import { plusButtonStyle } from '@/sharedStyle';
 import { activityDialogState } from './activityDialog';
 
 const style = {
-  ...plusButtonStyle('4vw'),
+  ...plusButtonStyle('50px'),
   position: 'fixed',
   right: '2vw',
   bottom: '4vh',
