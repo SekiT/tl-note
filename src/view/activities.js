@@ -2,7 +2,7 @@ import { html } from 'sinuous';
 import { computed } from 'sinuous/observable';
 import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
-import activities from '@/observable/activities';
+import activities, { newId } from '@/observable/activities';
 import { foregroundColor } from './util';
 import { activityDialogState } from './activityDialog';
 
@@ -54,6 +54,7 @@ const cellStyle = computed(() => ({
 }));
 
 const actStyle = (color) => ({
+  display: 'block',
   margin: '1px',
   padding: '2px',
   border: '1px solid black',
@@ -63,18 +64,30 @@ const actStyle = (color) => ({
   'z-index': 1,
 });
 
-const onClickAct = (act) => () => {
+const onClickCell = (day, time, columnId) => () => {
+  activityDialogState({
+    mode: 'add',
+    id: newId(),
+    day,
+    time,
+    columnIds: [columnId],
+    text: '',
+  });
+};
+
+const onClickAct = (act) => (evt) => {
   activityDialogState({
     mode: 'update',
     ...act,
   });
+  evt.stopPropagation();
 };
 
-const activityView = ([, time, acts]) => html`
+const activityView = ([day, time, acts]) => html`
   <tr style=${trStyle}>
     <td style=${timeColumnStyle}>${time}</td>
     ${map(columns, ({ id: columnId, color }) => html`
-      <td style=${cellStyle}>
+      <td style=${cellStyle} onclick=${onClickCell(day, time, columnId)}>
         ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
           <div style=${actStyle(color)} onclick=${onClickAct(act)} data-id=${act.id}>${act.text}</div>
         ` : ''))}

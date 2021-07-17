@@ -1,5 +1,5 @@
 import { html } from 'sinuous';
-import activities from '@/observable/activities';
+import activities, { newId } from '@/observable/activities';
 import { plusButtonStyle } from '@/sharedStyle';
 import { activityDialogState } from './activityDialog';
 
@@ -12,7 +12,7 @@ const style = {
 
 const onClick = () => {
   const currentActivities = activities();
-  const id = `a${Math.max(0, ...currentActivities.map((activity) => parseInt(activity.id.slice(1), 10))) + 1}`;
+  const id = newId();
   const day = Math.max(1, ...currentActivities.map((activity) => activity.day));
   activityDialogState({
     mode: 'add',

@@ -1,4 +1,4 @@
-import { observable } from 'sinuous/observable';
+import { observable, computed } from 'sinuous/observable';
 
 const activities = observable([
   {
@@ -23,5 +23,7 @@ const activities = observable([
     text: 'C様が自室から出てエントランスに来た',
   },
 ]);
+
+export const newId = computed(() => `a${Math.max(0, ...activities().map(({ id }) => parseInt(id.slice(1), 10))) + 1}`);
 
 export default activities;
