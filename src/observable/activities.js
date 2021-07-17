@@ -13,7 +13,6 @@ const activities = observable([
     columnIds: ['c1'],
     day: 1,
     time: '12:00',
-    timeEnd: '13:00',
     text: 'A氏はエントランスにいた。B君以外とは会っていない',
   },
   {

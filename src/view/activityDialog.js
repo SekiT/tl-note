@@ -13,7 +13,6 @@ export const activityDialogState = observable({
   columnIds: [],
   day: 1,
   time: '',
-  timeEnd: '',
   text: '',
 });
 
@@ -113,32 +112,6 @@ const onChangeTime = (evt) => {
   });
 };
 
-const timeEndFieldStyle = {
-  'font-size': '18px',
-  'margin-top': '5px',
-};
-
-const timeEnd = computed(() => activityDialogState().timeEnd);
-const onChangeTimeEnd = (evt) => {
-  activityDialogState({
-    ...activityDialogState(),
-    timeEnd: evt.target.value,
-  });
-};
-
-const clearTimeEndButtonStyle = {
-  ...plusButtonStyle('18px'),
-  'margin-left': '5px',
-  'background-color': '#ccc',
-  'border-color': '#999',
-};
-const onClickClearTimeEnd = () => {
-  activityDialogState({
-    ...activityDialogState(),
-    timeEnd: '',
-  });
-};
-
 const textStyle = {
   width: 'calc(100% - 12px)',
   height: 'calc(70vh - 109px)',
@@ -218,10 +191,6 @@ export default () => html`
             <input type="number" style=${dayInputStyle} value=${day} onchange=${onChangeDay} />
           </div>
           <input type="time" style=${timeInputStyle} value=${time} onchange=${onChangeTime} />
-          <div style=${timeEndFieldStyle}>
-            ~<input type="time" value=${timeEnd} onchange=${onChangeTimeEnd} />
-            <button style=${clearTimeEndButtonStyle} onclick=${onClickClearTimeEnd}>X</button>
-          </div>
           <div style=${buttonsFieldStyle}>
             ${deleteButton}
             <button

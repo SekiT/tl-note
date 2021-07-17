@@ -20,7 +20,6 @@ const onClick = () => {
     columnIds: [],
     day,
     time: '12:00',
-    timeEnd: '',
     text: '',
   });
 };

@@ -6,7 +6,7 @@ import activities from '@/observable/activities';
 import { foregroundColor } from './util';
 import { activityDialogState } from './activityDialog';
 
-const dayTimeKey = (day, time) => [day, time].join(',');
+const dayTimeKey = ({ day, time }) => [day, time].join(',');
 const deKey = (dayTime) => {
   const [dayStr, time] = dayTime.split(',');
   return [parseInt(dayStr, 10), time];
@@ -16,11 +16,8 @@ const dayTimeToActivities = computed(() => [
   ...activities()
     .reduce(
       (acc, activity) => {
-        const { day, time, timeEnd } = activity;
-        const key = dayTimeKey(day, time);
+        const key = dayTimeKey(activity);
         acc.set(key, [...acc.get(key) || [], activity]);
-        const timeEndKey = dayTimeKey(day, timeEnd);
-        if (timeEnd) acc.set(timeEndKey, [...acc.get(timeEndKey) || []]);
         return acc;
       },
       new Map(),
@@ -73,9 +70,9 @@ const onClickAct = (act) => () => {
   });
 };
 
-const activityView = ([day, time, acts]) => html`
+const activityView = ([, time, acts]) => html`
   <tr style=${trStyle}>
-    <td style=${timeColumnStyle} data-day=${day} data-time=${time}>${time}</td>
+    <td style=${timeColumnStyle}>${time}</td>
     ${map(columns, ({ id: columnId, color }) => html`
       <td style=${cellStyle}>
         ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
