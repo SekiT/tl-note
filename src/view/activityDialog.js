@@ -151,8 +151,8 @@ const deleteButton = computed(() => (activityDialogState().mode === 'update' ? (
 ) : ''));
 
 const upsertButtonDisabled = computed(() => {
-  const { columnIds, time: currentTime, text: currentText } = activityDialogState();
-  return columnIds.length === 0 || currentTime === '' || currentText === '';
+  const { columnIds, time: currentTime } = activityDialogState();
+  return columnIds.length === 0 || currentTime === '';
 });
 const upsertButtonStyle = computed(() => ({
   ...plusButtonStyle('30px'),
