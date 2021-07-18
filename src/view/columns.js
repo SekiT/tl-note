@@ -4,6 +4,7 @@ import { plusButtonStyle } from '@/sharedStyle';
 import columns from '@/observable/columns';
 import { foregroundColor } from './util';
 import { columnDialogState } from './columnDialog';
+import { timePlotsDialogState } from './timePlotsDialog';
 
 const columnStyle = ({ color, name }, length) => {
   const width = 75 / length;
@@ -76,6 +77,10 @@ const buttonStyle = {
   'margin-left': '0.5vw',
 };
 
+const onClickOpenTimePlotDialogButton = () => {
+  timePlotsDialogState({ open: true });
+};
+
 const randomColor = () => (
   [0, 64, 128, 192, 255][Math.floor(Math.random() * 5)]
 );
@@ -94,7 +99,7 @@ const onClickPlusButton = () => {
 export default () => html`
   <div style=${containerStyle}>
     <div style=${timePlotsPartStyle}>
-      <span style="cursor:default">⏬</span>
+      <span style="cursor:default" onclick=${onClickOpenTimePlotDialogButton}>⏬</span>
     </div>
     <div style=${columnsPartStyle}>
       ${columnsPart}

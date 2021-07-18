@@ -4,6 +4,7 @@ import activitiesView from './view/activities';
 import newActivityButtonView from './view/newActivityButton';
 import fileButtonView from './view/fileButton';
 import columnDialog from './view/columnDialog';
+import timePlotDialog from './view/timePlotsDialog';
 import activityDialog from './view/activityDialog';
 
 const style = {
@@ -20,6 +21,7 @@ const indexView = () => html`
   <${newActivityButtonView} />
   <${fileButtonView} />
   <${columnDialog} />
+  <${timePlotDialog} />
   <${activityDialog} />
 `;
 
