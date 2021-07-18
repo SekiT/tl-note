@@ -44,10 +44,17 @@ const columnsPart = computed(() => {
 
 const containerStyle = {
   display: 'flex',
-  'margin-left': '15vw',
-  width: '85vw',
+  'margin-left': '5vw',
+  width: '95vw',
   height: '36px',
   'align-items': 'center',
+};
+
+const timePlotsPartStyle = {
+  display: 'flex',
+  width: '10vw',
+  'font-size': '24px',
+  'justify-content': 'center',
 };
 
 const columnsPartStyle = {
@@ -86,6 +93,9 @@ const onClickPlusButton = () => {
 
 export default () => html`
   <div style=${containerStyle}>
+    <div style=${timePlotsPartStyle}>
+      <span style="cursor:default">⏬</span>
+    </div>
     <div style=${columnsPartStyle}>
       ${columnsPart}
     </div>
