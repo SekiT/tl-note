@@ -103,7 +103,7 @@ const activityView = ([day, time, acts]) => html`
 const containerStyle = {
   display: 'block',
   width: '85vw',
-  height: 'calc(96vh - 36px)',
+  'max-height': 'calc(96vh - 36px)',
   margin: '0 5vw',
   'border-collapse': 'collapse',
   'overflow-y': 'scroll',

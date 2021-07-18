@@ -4,8 +4,8 @@ export default observable([
   {
     fromDay: 1,
     fromTime: '11:00',
-    toDay: 3,
-    toTime: '14:00',
+    toDay: 1,
+    toTime: '16:00',
     step: 30,
   },
 ]);
