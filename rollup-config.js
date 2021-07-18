@@ -14,7 +14,9 @@ const minifyTemplatePlugin = {
         .replace(/\n/g, '')
         .replace(/  +/g, ' ')
         .replace(/> /g, '>')
-        .replace(/ </g, '<')),
+        .replace(/ </g, '<')
+        .replace(/: /g, ':')
+        .replace(/; /g, ';')),
     };
   },
 };
