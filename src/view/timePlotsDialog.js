@@ -52,17 +52,23 @@ const timeInputStyle = {
   margin: '0 6px 0 3px',
   'font-size': '16px',
 };
+const updateByIndex = (index, key, value) => {
+  timePlots(timePlots().map((plot, i) => (i === index ? { ...plot, [key]: value } : plot)));
+};
 const onChangeDay = (propertyName, index) => (evt) => {
   const day = parseInt(evt.target.value, 10);
-  if (Number.isNaN(day)) return;
-  timePlots(timePlots().map((plot, i) => (i === index ? { ...plot, [propertyName]: day } : plot)));
+  if (Number.isNaN(day)) { timePlots(timePlots()); return; }
+  updateByIndex(index, propertyName, day);
 };
 const onChangeTime = (propertyName, index) => (evt) => {
   const { value } = evt.target;
-  if (value === '') return;
-  timePlots(timePlots().map(
-    (plot, i) => (i === index ? { ...plot, [propertyName]: value } : plot),
-  ));
+  if (value === '') { timePlots(timePlots()); return; }
+  updateByIndex(index, propertyName, value);
+};
+const onChangeStep = (index) => (evt) => {
+  const step = parseInt(evt.target.value, 10);
+  if (!step) { timePlots(timePlots()); return; }
+  updateByIndex(index, 'step', step);
 };
 const deleteButtonStyle = {
   ...plusButtonStyle('24px'),
@@ -107,7 +113,13 @@ const timePlotView = ([{
         value=${toTime}
       />
       /
-      <input type="number" style=${numberInputStyle} value=${step} />
+      <input
+        type="number"
+        style=${numberInputStyle}
+        onblur=${onChangeStep(index)}
+        value=${step}
+        min="1"
+      />
       min
       <button style=${deleteButtonStyle} onclick=${onClickDeleteButton(index)}>🗑️</button>
     </div>
