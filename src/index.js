@@ -7,11 +7,11 @@ import columnDialog from './view/columnDialog';
 import timePlotDialog from './view/timePlotsDialog';
 import activityDialog from './view/activityDialog';
 
-const style = {
-  margin: '2vh 0',
-  'font-size': '14px',
-  'font-family': 'sans-serif',
-};
+const style = `
+  margin: 2vh 0;
+  font-size: 14px;
+  font-family: sans-serif;
+`;
 
 const indexView = () => html`
   <div style=${style}>

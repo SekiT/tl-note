@@ -16,21 +16,21 @@ export const activityDialogState = observable({
   text: '',
 });
 
-const containerStyle = computed(() => ({
-  ...dialogBackgroundStyle,
-  display: activityDialogState().mode === 'none' ? 'none' : 'block',
-}));
+const containerStyle = computed(() => `
+  ${dialogBackgroundStyle}
+  display: ${activityDialogState().mode === 'none' ? 'none' : 'block'};
+`);
 
-const windowStyle = {
-  ...dialogWindowStyle,
-  width: '70%',
-  height: '70%',
-};
+const windowStyle = `
+  ${dialogWindowStyle}
+  width: 70%;
+  height: 70%;
+`;
 
-const titleStyle = {
-  'margin-left': '7px',
-  'font-size': '24px',
-};
+const titleStyle = `
+  margin-left: 7px;
+  font-size: 24px;
+`;
 
 const titleTexts = {
   add: '項目追加',
@@ -45,15 +45,15 @@ const onClickCloseButton = () => activityDialogState({
   mode: 'none',
 });
 
-const columnStyle = (color, checked, width) => ({
-  'background-color': `rgb(${color.join(',')})`,
-  color: foregroundColor(color),
-  opacity: checked ? 1 : 0.3,
-  width: `${width}%`,
-  'border-radius': '8px 8px 0 0',
-  'font-size': '16px',
-  'text-align': 'center',
-});
+const columnStyle = (color, checked, width) => `
+  background-color: rgb(${color.join(',')});
+  color: ${foregroundColor(color)};
+  opacity: ${checked ? 1 : 0.3};
+  width: ${width}%;
+  border-radius: 8px 8px 0 0;
+  font-size: 16px;
+  text-align: center;
+`;
 const onClickColumn = (id, checked) => () => {
   const currentState = activityDialogState();
   const columnIds = checked
@@ -84,14 +84,14 @@ const columnsPart = computed(() => {
   `;
 });
 
-const dayFieldStyle = {
-  'margin-top': '5px',
-  'font-size': '14px',
-};
-const dayInputStyle = {
-  'margin-left': '5px',
-  width: '30%',
-};
+const dayFieldStyle = `
+  margin-top: 5px;
+  font-size: 14px;
+`;
+const dayInputStyle = `
+  margin-left: 5px;
+  width: 30%;
+`;
 const day = computed(() => activityDialogState().day);
 const onChangeDay = (evt) => {
   activityDialogState({
@@ -100,10 +100,10 @@ const onChangeDay = (evt) => {
   });
 };
 
-const timeInputStyle = {
-  'margin-top': '5px',
-  width: '70%',
-};
+const timeInputStyle = `
+  margin-top: 5px;
+  width: 70%;
+`;
 const time = computed(() => activityDialogState().time);
 const onChangeTime = (evt) => {
   activityDialogState({
@@ -112,16 +112,16 @@ const onChangeTime = (evt) => {
   });
 };
 
-const textStyle = {
-  width: 'calc(100% - 12px)',
-  height: 'calc(70vh - 109px)',
-  padding: '5px',
-  'font-size': '18px',
-  'background-color': '#eee',
-  color: 'black',
-  'font-family': 'sans-serif',
-  resize: 'none',
-};
+const textStyle = `
+  width: calc(100% - 12px);
+  height: calc(70vh - 109px);
+  padding: 5px;
+  font-size: 18px;
+  background-color: #eee;
+  color: black;
+  font-family: sans-serif;
+  resize: none;
+`;
 const text = computed(() => activityDialogState().text);
 const onChangeText = (evt) => {
   activityDialogState({
@@ -133,13 +133,13 @@ const onChangeText = (evt) => {
 const buttonsFieldStyle = {
   'margin-top': 'auto',
 };
-const deleteButtonStyle = {
-  ...plusButtonStyle('30px'),
-  'margin-right': '7px',
-  'font-size': '15px',
-  'background-color': '#fcc',
-  'border-color': '#c99',
-};
+const deleteButtonStyle = `
+  ${plusButtonStyle('30px')}
+  margin-right: 7px;
+  font-size: 15px;
+  background-color: #fcc;
+  border-color: #c99;
+`;
 const onClickDeleteButton = () => {
   const state = activityDialogState();
   const { id } = state;
@@ -154,13 +154,13 @@ const upsertButtonDisabled = computed(() => {
   const { columnIds, time: currentTime } = activityDialogState();
   return columnIds.length === 0 || currentTime === '';
 });
-const upsertButtonStyle = computed(() => ({
-  ...plusButtonStyle('30px'),
-  'font-size': '15px',
-  'background-color': '#cfc',
-  'border-color': '#9c9',
-  opacity: upsertButtonDisabled() ? 0.3 : 1,
-}));
+const upsertButtonStyle = computed(() => `
+  ${plusButtonStyle('30px')}
+  font-size: 15px;
+  background-color: #cfc;
+  border-color: #9c9;
+  opacity: ${upsertButtonDisabled() ? 0.3 : 1};
+`);
 const onClickUpsertButton = () => {
   const { mode, ...newActivity } = activityDialogState();
   if (mode === 'add') {

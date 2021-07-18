@@ -4,18 +4,18 @@ import activities from '@/observable/activities';
 import timePlots from '@/observable/timePlots';
 import { plusButtonStyle } from '@/sharedStyle';
 
-const containerStyle = {
-  position: 'fixed',
-  left: '2vw',
-  bottom: '4vh',
-};
+const containerStyle = `
+  position: fixed;
+  left: 2vw;
+  bottom: 4vh;
+`;
 
-const buttonStyle = {
-  ...plusButtonStyle('40px'),
-  display: 'block',
-  'font-size': '20px',
-  'margin-top': '1vh',
-};
+const buttonStyle = `
+  ${plusButtonStyle('40px')}
+  display: block;
+  font-size: 20px;
+  margin-top: 1vh;
+`;
 
 const onChangeFile = (evt) => {
   const file = evt.target.files[0];

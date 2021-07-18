@@ -52,36 +52,36 @@ const timeTable = computed(() => {
   ]);
 });
 
-const trStyle = {
-  'border-top': '1px dashed black',
-  'border-bottom': '1px dashed black',
-};
+const trStyle = `
+  border-top: 1px dashed black;
+  border-bottom: 1px dashed black;
+`;
 
-const timeColumnStyle = {
-  padding: '3px 0',
-  width: '10vw',
-  'text-align': 'center',
-  color: 'black',
-};
+const timeColumnStyle = `
+  padding: 3px 0;
+  width: 10vw;
+  text-align: center;
+  color: black;
+`;
 
-const cellStyle = computed(() => ({
-  display: 'table-cell',
-  padding: 0,
-  width: `${75 / columns().length}vw`,
-  'text-align': 'center',
-  'vertical-align': 'top',
-}));
+const cellStyle = computed(() => `
+  display: table-cell;
+  padding: 0;
+  width: ${75 / columns().length}vw;
+  text-align: center;
+  vertical-align: top;
+`);
 
-const actStyle = (color) => ({
-  display: 'block',
-  margin: '1px',
-  padding: '2px',
-  border: '1px solid black',
-  'border-radius': '3px',
-  'background-color': `rgba(${color.join(',')},0.5)`,
-  color: foregroundColor(color),
-  'z-index': 1,
-});
+const actStyle = (color) => `
+  display: block;
+  margin: 1px;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: rgba(${color.join(',')},0.5);
+  color: ${foregroundColor(color)};
+  z-index: 1;
+`;
 
 const onClickCell = (day, time, columnId) => () => {
   activityDialogState({
@@ -121,15 +121,15 @@ const activityView = ([, time, cells]) => html`
   </tr>
 `;
 
-const containerStyle = {
-  display: 'block',
-  width: '85vw',
-  'max-height': 'calc(96vh - 36px)',
-  margin: '0 5vw',
-  'border-collapse': 'collapse',
-  'overflow-y': 'scroll',
-  'background-color': '#eee',
-};
+const containerStyle = `
+  display: block;
+  width: 85vw;
+  max-height: calc(96vh - 36px);
+  margin: 0 5vw;
+  border-collapse: collapse;
+  overflow-y: scroll;
+  background-color: #eee;
+`;
 
 export default () => html`
   <table style=${containerStyle} cellSpacing="0">

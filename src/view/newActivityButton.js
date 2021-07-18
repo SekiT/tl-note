@@ -3,12 +3,12 @@ import activities, { newId } from '@/observable/activities';
 import { plusButtonStyle } from '@/sharedStyle';
 import { activityDialogState } from './activityDialog';
 
-const style = {
-  ...plusButtonStyle('50px'),
-  position: 'fixed',
-  right: '2vw',
-  bottom: '4vh',
-};
+const style = `
+  ${plusButtonStyle('50px')}
+  position: fixed;
+  right: 2vw;
+  bottom: 4vh;
+`;
 
 const onClick = () => {
   const currentActivities = activities();

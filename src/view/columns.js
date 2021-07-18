@@ -8,15 +8,15 @@ import { timePlotsDialogState } from './timePlotsDialog';
 
 const columnStyle = ({ color, name }, length) => {
   const width = 75 / length;
-  return {
-    width: `${width}vw`,
-    'line-height': '36px',
-    'font-size': `min(24px, ${width / name.length}vw)`,
-    'text-align': 'center',
-    'border-radius': '12px 12px 0 0',
-    'background-color': `rgb(${color.join(',')})`,
-    color: foregroundColor(color),
-  };
+  return `
+    width: ${width}vw;
+    line-height: 36px;
+    font-size: min(24px, ${width / name.length}vw);
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+    background-color: rgb(${color.join(',')});
+    color: ${foregroundColor(color)};
+  `;
 };
 
 const onClickColumn = (evt) => {
@@ -43,39 +43,39 @@ const columnsPart = computed(() => {
   return cs.map((c) => columnView(c, length));
 });
 
-const containerStyle = {
-  display: 'flex',
-  'margin-left': '5vw',
-  width: '95vw',
-  height: '36px',
-  'align-items': 'center',
-};
+const containerStyle = `
+  display: flex;
+  margin-left: 5vw;
+  width: 95vw;
+  height: 36px;
+  align-items: center;
+`;
 
-const timePlotsPartStyle = {
-  display: 'flex',
-  width: '10vw',
-  'font-size': '24px',
-  'justify-content': 'center',
-};
+const timePlotsPartStyle = `
+  display: flex;
+  width: 10vw;
+  font-size: 24px;
+  justify-content: center;
+`;
 
-const columnsPartStyle = {
-  display: 'flex',
-  width: '75vw',
-};
+const columnsPartStyle = `
+  display: flex;
+  width: 75vw;
+`;
 
-const buttonPartStyle = {
-  display: 'flex',
-  width: '10vw',
-  'text-align': 'left',
-};
+const buttonPartStyle = `
+  display: flex;
+  width: 10vw;
+  text-align: left;
+`;
 
 const buttonWidth = 'min(max(4vw, 24px), 32px)';
 
-const buttonStyle = {
-  ...plusButtonStyle(buttonWidth),
-  'align-self': 'center',
-  'margin-left': '0.5vw',
-};
+const buttonStyle = `
+  ${plusButtonStyle(buttonWidth)}
+  align-self: center;
+  margin-left: 0.5vw;
+`;
 
 const onClickOpenTimePlotDialogButton = () => {
   timePlotsDialogState({ open: true });
