@@ -6,11 +6,15 @@ import livereload from 'rollup-plugin-livereload';
 
 const path = require('path');
 
-const unbreakTemplatePlugin = {
-  name: 'unbreak-template',
+const minifyTemplatePlugin = {
+  name: 'minify-template',
   transform(code) {
     return {
-      code: code.replace(/`[^`]*`/g, (template) => template.replace(/\n/g, '')),
+      code: code.replace(/`[^`]*`/g, (template) => template
+        .replace(/\n/g, '')
+        .replace(/  +/g, ' ')
+        .replace(/> /g, '>')
+        .replace(/ </g, '<')),
     };
   },
 };
@@ -22,7 +26,7 @@ const commonPlugins = [
 
 const envDependentPlugins = process.env.PRODUCTION ? [
   esbuild({ minify: true }),
-  unbreakTemplatePlugin,
+  minifyTemplatePlugin,
 ] : [
   serve({ contentBase: 'build', open: true }),
   livereload(),
