@@ -8,13 +8,6 @@ export default observable([
     toTime: '16:00',
     step: 30,
   },
-  {
-    fromDay: 1,
-    fromTime: '12:00',
-    toDay: 1,
-    toTime: '13:00',
-    step: 5,
-  },
 ]);
 
 const compareTuple = (tuple1, tuple2) => {
