@@ -1,6 +1,6 @@
 {
   "name": "tl-note",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "マダミスとかのタイムライン整理に使えると嬉しいやつ",
   "main": "index.js",
   "scripts": {
