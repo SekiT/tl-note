@@ -3,6 +3,7 @@ import { computed } from 'sinuous/observable';
 import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
 import activities, { newId } from '@/observable/activities';
+import timePlots, { toTimes } from '@/observable/timePlots';
 import { foregroundColor } from './util';
 import { activityDialogState } from './activityDialog';
 
@@ -13,16 +14,19 @@ const deKey = (dayTime) => {
 };
 
 const dayTimeToActivities = computed(() => [
-  ...activities()
-    .reduce(
-      (acc, activity) => {
-        const key = dayTimeKey(activity);
-        acc.set(key, [...acc.get(key) || [], activity]);
-        return acc;
-      },
-      new Map(),
-    )
-    .entries(),
+  ...[
+    ...activities()
+      .map((activity) => [dayTimeKey(activity), [activity]]),
+    ...timePlots()
+      .flatMap((timePlot) => [...toTimes(timePlot)])
+      .map(([day, time]) => [dayTimeKey({ day, time }), []]),
+  ].reduce(
+    (acc, [key, acts]) => {
+      acc.set(key, [...acc.get(key) || [], ...acts]);
+      return acc;
+    },
+    new Map(),
+  ).entries(),
 ]
   .map(([key, acts]) => [...deKey(key), acts])
   .sort(([day1, time1], [day2, time2]) => {
@@ -39,7 +43,7 @@ const trStyle = {
 };
 
 const timeColumnStyle = {
-  padding: 0,
+  padding: '3px 0',
   width: '10vw',
   'text-align': 'center',
   color: 'black',
