@@ -37,6 +37,21 @@ const dayTimeToActivities = computed(() => [
     return 0;
   }));
 
+const timeTable = computed(() => {
+  const currentColumns = columns();
+  return dayTimeToActivities().map(([day, time, acts]) => [
+    day,
+    time,
+    currentColumns.map(({ id, color }) => ({
+      day,
+      time,
+      columnId: id,
+      color,
+      acts: acts.flatMap((act) => (act.columnIds.includes(id) ? [{ ...act, color }] : [])),
+    })),
+  ]);
+});
+
 const trStyle = {
   'border-top': '1px dashed black',
   'border-bottom': '1px dashed black',
@@ -87,16 +102,22 @@ const onClickAct = (act) => (evt) => {
   evt.stopPropagation();
 };
 
-const activityView = ([day, time, acts]) => html`
+const actView = (act) => html`
+  <div style=${actStyle(act.color)} onclick=${onClickAct(act)}>${act.text}</div>
+`;
+
+const cellView = ({
+  day, time, columnId, acts,
+}) => html`
+  <td style=${cellStyle} onclick=${onClickCell(day, time, columnId)}>
+    ${acts.map(actView)}
+  </td>
+`;
+
+const activityView = ([, time, cells]) => html`
   <tr style=${trStyle}>
     <td style=${timeColumnStyle}>${time}</td>
-    ${map(columns, ({ id: columnId, color }) => html`
-      <td style=${cellStyle} onclick=${onClickCell(day, time, columnId)}>
-        ${acts.map((act) => (act.columnIds.includes(columnId) ? html`
-          <div style=${actStyle(color)} onclick=${onClickAct(act)} data-id=${act.id}>${act.text}</div>
-        ` : ''))}
-      </td>
-    `)}
+    ${cells.map(cellView)}
   </tr>
 `;
 
@@ -113,7 +134,7 @@ const containerStyle = {
 export default () => html`
   <table style=${containerStyle} cellSpacing="0">
     <tbody>
-      ${map(dayTimeToActivities, activityView)}
+      ${map(timeTable, activityView)}
     </tbody>
   </table>
 `;
