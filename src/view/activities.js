@@ -101,7 +101,9 @@ const activityView = ([day, time, acts]) => html`
 `;
 
 const containerStyle = {
+  display: 'block',
   width: '85vw',
+  height: 'calc(96vh - 36px)',
   margin: '0 5vw',
   'border-collapse': 'collapse',
   'overflow-y': 'scroll',
@@ -109,7 +111,7 @@ const containerStyle = {
 };
 
 export default () => html`
-  <table style=${containerStyle} cellSpacing={0}>
+  <table style=${containerStyle} cellSpacing="0">
     <tbody>
       ${map(dayTimeToActivities, activityView)}
     </tbody>
