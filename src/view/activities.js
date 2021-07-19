@@ -74,6 +74,7 @@ const cellStyle = computed(() => `
 
 const actStyle = (color) => `
   display: block;
+  min-height: 21px;
   margin: 1px;
   padding: 2px;
   border: 1px solid black;
