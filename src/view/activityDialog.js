@@ -103,6 +103,7 @@ const onChangeDay = (evt) => {
 const timeInputStyle = `
   margin-top: 5px;
   width: 70%;
+  font-family: sans-serif;
 `;
 const time = computed(() => activityDialogState().time);
 const onChangeTime = (evt) => {

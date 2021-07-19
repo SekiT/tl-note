@@ -51,6 +51,7 @@ const numberInputStyle = `
 const timeInputStyle = `
   margin: 0 6px 0 3px;
   font-size: 16px;
+  font-family: sans-serif;
 `;
 const updateByIndex = (index, key, value) => {
   timePlots(timePlots().map((plot, i) => (i === index ? { ...plot, [key]: value } : plot)));
