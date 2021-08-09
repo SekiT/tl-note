@@ -33,7 +33,7 @@ const onClickColumn = (evt) => {
 
 const columnView = (column, length) => html`
   <div style=${columnStyle(column, length)} onclick=${onClickColumn} data-id=${column.id}>
-    ${column.name}
+    ${column.name || '　'}
   </div>
 `;
 
