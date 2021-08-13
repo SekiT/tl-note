@@ -174,8 +174,14 @@ const onClickUpsertButton = () => {
   activityDialogState({ ...newActivity, mode: 'none' });
 };
 
+const onkeydown = (evt) => {
+  if (evt.shiftKey && evt.key === 'Enter') {
+    onClickUpsertButton();
+  }
+};
+
 export default () => html`
-  <div style=${containerStyle}>
+  <div style=${containerStyle} onkeydown=${onkeydown}>
     <div style=${windowStyle}>
       <div style=${titleStyle}>
         ${titleText}
@@ -189,9 +195,9 @@ export default () => html`
         <div style="display:flex;flex-direction:column">
           <div style=${dayFieldStyle}>
             Day
-            <input type="number" style=${dayInputStyle} value=${day} onchange=${onChangeDay} />
+            <input type="number" style=${dayInputStyle} value=${day} oninput=${onChangeDay} />
           </div>
-          <input type="time" style=${timeInputStyle} value=${time} onchange=${onChangeTime} />
+          <input type="time" style=${timeInputStyle} value=${time} oninput=${onChangeTime} />
           <div style=${buttonsFieldStyle}>
             ${deleteButton}
             <button
@@ -202,7 +208,7 @@ export default () => html`
           </div>
         </div>
         <div style="width:100%">
-          <textarea style=${textStyle} value=${text} onchange=${onChangeText}></textarea>
+          <textarea style=${textStyle} value=${text} oninput=${onChangeText}></textarea>
         </div>
       </div>
     </div>

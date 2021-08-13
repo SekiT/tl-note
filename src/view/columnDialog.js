@@ -120,8 +120,14 @@ const onClickUpsertButton = () => {
   columnDialogState({ mode: 'none', ...newColumn });
 };
 
+const onkeydown = (evt) => {
+  if (evt.shiftKey && evt.key === 'Enter') {
+    onClickUpsertButton();
+  }
+};
+
 export default () => html`
-  <div style=${containerStyle}>
+  <div style=${containerStyle} onkeydown=${onkeydown}>
     <div style=${dialogWindowStyle}>
       <div style="display:flex">
         <div style=${titleStyle}>${titleText}</div>
@@ -129,8 +135,8 @@ export default () => html`
       </div>
       <hr style=${hrStyle} />
       <div>
-        <input type="color" value=${bgColor} style=${colorInputStyle} onchange=${onChangeColor} />
-        <input type="text" value=${name} style=${nameInputStyle} onchange=${onChangeName} />
+        <input type="color" value=${bgColor} style=${colorInputStyle} oninput=${onChangeColor} />
+        <input type="text" value=${name} style=${nameInputStyle} oninput=${onChangeName} />
       </div>
       <div style=${buttonAreaStyle}>
         ${deleteButton}
