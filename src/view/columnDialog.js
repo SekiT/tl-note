@@ -129,8 +129,8 @@ export default () => html`
       </div>
       <hr style=${hrStyle} />
       <div>
-        <input type="color" value=${bgColor} style=${colorInputStyle} onchange=${onChangeColor} />
-        <input type="text" value=${name} style=${nameInputStyle} onchange=${onChangeName} />
+        <input type="color" value=${bgColor} style=${colorInputStyle} oninput=${onChangeColor} />
+        <input type="text" value=${name} style=${nameInputStyle} oninput=${onChangeName} />
       </div>
       <div style=${buttonAreaStyle}>
         ${deleteButton}
