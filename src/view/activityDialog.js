@@ -174,8 +174,14 @@ const onClickUpsertButton = () => {
   activityDialogState({ ...newActivity, mode: 'none' });
 };
 
+const onkeydown = (evt) => {
+  if (evt.shiftKey && evt.key === 'Enter') {
+    onClickUpsertButton();
+  }
+};
+
 export default () => html`
-  <div style=${containerStyle}>
+  <div style=${containerStyle} onkeydown=${onkeydown}>
     <div style=${windowStyle}>
       <div style=${titleStyle}>
         ${titleText}
