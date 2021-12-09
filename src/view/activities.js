@@ -3,7 +3,7 @@ import { computed } from 'sinuous/observable';
 import { map } from 'sinuous/map';
 import columns from '@/observable/columns';
 import activities, { newId } from '@/observable/activities';
-import timePlots, { toTimes } from '@/observable/timePlots';
+import timePlots, { toTimes, compareTuple } from '@/observable/timePlots';
 import { foregroundColor } from './util';
 import { activityDialogState } from './activityDialog';
 
@@ -29,13 +29,7 @@ const dayTimeToActivities = computed(() => [
   ).entries(),
 ]
   .map(([key, acts]) => [...deKey(key), acts])
-  .sort(([day1, time1], [day2, time2]) => {
-    if (day1 < day2) return -1;
-    if (day1 > day2) return 1;
-    if (time1 < time2) return -1;
-    if (time1 > time2) return 1;
-    return 0;
-  }));
+  .sort(compareTuple));
 
 const timeTable = computed(() => {
   const currentColumns = columns();

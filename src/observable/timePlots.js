@@ -10,7 +10,7 @@ export default observable([
   },
 ]);
 
-const compareTuple = (tuple1, tuple2) => {
+export const compareTuple = (tuple1, tuple2) => {
   const { length } = tuple1;
   for (let index = 0; index < length; index += 1) {
     if (tuple1[index] < tuple2[index]) return -1;
