@@ -21,8 +21,8 @@
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-multi-entry": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "esbuild": "^0.15.6",
+    "@rollup/plugin-node-resolve": "^14.0.0",
+    "esbuild": "^0.15.7",
     "eslint": "^8.23.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
@@ -33,6 +33,6 @@
     "rollup-plugin-serve": "^2.0.1"
   },
   "dependencies": {
-    "sinuous": "^0.28.1"
+    "sinuous": "^0.29.0"
   }
 }
