@@ -4,8 +4,8 @@
   "description": "マダミスとかのタイムライン整理に使えると嬉しいやつ",
   "main": "index.js",
   "scripts": {
-    "start": "rollup -c rollup-config.js --watch",
-    "build": "rollup -c rollup-config.js --environment PRODUCTION",
+    "start": "rollup -c rollup-config.mjs --watch",
+    "build": "rollup -c rollup-config.mjs --environment PRODUCTION",
     "lint": "eslint . --fix"
   },
   "repository": {
@@ -20,14 +20,14 @@
   "homepage": "https://github.com/SekiT/tl-note#readme",
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.0",
-    "@rollup/plugin-multi-entry": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^14.1.0",
-    "esbuild": "^0.15.10",
+    "@rollup/plugin-multi-entry": "^5.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "esbuild": "^0.15.11",
     "eslint": "^8.25.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.26.0",
-    "rollup": "^2.79.1",
+    "rollup": "^3.2.0",
     "rollup-plugin-esbuild": "^4.10.1",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-serve": "^2.0.1"

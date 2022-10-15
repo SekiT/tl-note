@@ -1,10 +1,9 @@
+import path from 'path';
 import alias from '@rollup/plugin-alias';
 import resolve from '@rollup/plugin-node-resolve';
 import esbuild from 'rollup-plugin-esbuild';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
-
-const path = require('path');
 
 const minifyTemplatePlugin = {
   name: 'minify-template',
