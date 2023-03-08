@@ -16,7 +16,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     // We use devDependencies in rollup-config, which is not included in eslint-config-airbnb-base
     'import/no-extraneous-dependencies': ['error', {
-      devDependencies: ['rollup-config.js'],
+      devDependencies: ['rollup-config.mjs'],
       optionalDependencies: false,
     }],
   },
