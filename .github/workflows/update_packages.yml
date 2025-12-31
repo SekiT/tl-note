@@ -9,10 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        persist-credentials: false
-        fetch-depth: 0
+      uses: actions/checkout@v6
 
     - name: Update and test
       run: |
@@ -20,11 +17,13 @@ jobs:
         npm i
         npm run lint
         npm run build
+
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "ncu -u" -a --allow-empty
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
